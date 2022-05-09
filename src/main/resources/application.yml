@@ -1,0 +1,26 @@
+spring:
+  jpa:
+    properties:
+      hibernate:
+        show-sql: true
+        format_sql: true
+    hibernate:
+      ddl-auto: create
+    open-in-view: false
+
+  datasource:
+    url: jdbc:h2:tcp://localhost/~/patient
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.type: trace
+    com.demi.hdjassignment: debug
+
+server:
+  port: 8080
+  servlet:
+    context-path: /assignment
