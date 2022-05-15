@@ -16,7 +16,7 @@ spring:
 logging:
   level:
     org.hibernate.SQL: debug
-    org.hibernate.type: trace
+#    org.hibernate.type: trace
     com.demi.hdjassignment: debug
 
 server:
