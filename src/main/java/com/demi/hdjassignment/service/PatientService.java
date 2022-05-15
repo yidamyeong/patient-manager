@@ -1,5 +1,6 @@
 package com.demi.hdjassignment.service;
 
+import com.demi.hdjassignment.controller.dto.PatientDto;
 import com.demi.hdjassignment.controller.dto.UpdateDto;
 import com.demi.hdjassignment.entity.Hospital;
 import com.demi.hdjassignment.entity.Patient;
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.security.InvalidParameterException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -59,6 +62,29 @@ public class PatientService {
                 .orElseThrow(() -> new InvalidParameterException("Invalid Patient ID"));
 
         patientRepository.delete(patient);
+    }
+
+    @Transactional
+    public PatientDto findOne(Long id) {
+
+        Patient patient = patientRepository.findById(id)
+                .orElseThrow(() -> new InvalidParameterException("Invalid Patient ID"));
+
+        PatientDto dto = new PatientDto(patient);
+        log.debug("dto = {}", dto);
+
+        return dto;
+    }
+
+    @Transactional
+    public List<PatientDto> findAll() {
+        List<Patient> patients = patientRepository.findAll();
+        log.debug("patients = {}", patients);
+
+        return patients.stream()
+                .map(PatientDto::new)
+                .collect(Collectors.toList())
+        ;
     }
 
 }

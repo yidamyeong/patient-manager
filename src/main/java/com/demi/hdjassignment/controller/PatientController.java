@@ -2,6 +2,7 @@ package com.demi.hdjassignment.controller;
 
 import com.demi.hdjassignment.controller.dto.CreateDto;
 import com.demi.hdjassignment.controller.dto.DeleteDto;
+import com.demi.hdjassignment.controller.dto.PatientDto;
 import com.demi.hdjassignment.controller.dto.UpdateDto;
 import com.demi.hdjassignment.entity.form.PatientCreateForm;
 import com.demi.hdjassignment.entity.form.PatientIdForm;
@@ -12,6 +13,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -35,4 +37,15 @@ public class PatientController {
         patientService.deletePatient(form.getPatientId());
         return new DeleteDto("DELETED");
     }
+
+    @GetMapping(value = "/patient")
+    public PatientDto getPatient(@RequestParam("patient_id") Long id) {
+        return patientService.findOne(id);
+    }
+
+    @GetMapping(value = "/patient/list")
+    public List<PatientDto> getAllPatient() {
+        return patientService.findAll();
+    }
+
 }
