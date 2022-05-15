@@ -1,6 +1,7 @@
 package com.demi.hdjassignment.service;
 
 import com.demi.hdjassignment.controller.dto.PatientDto;
+import com.demi.hdjassignment.controller.dto.PatientListDto;
 import com.demi.hdjassignment.controller.dto.UpdateDto;
 import com.demi.hdjassignment.entity.Hospital;
 import com.demi.hdjassignment.entity.Patient;
@@ -100,7 +101,7 @@ public class PatientService {
 
     // 환자 목록으로 조회
     @Transactional
-    public List<PatientDto> findAllBySearchCondition(SearchForm form) {
+    public List<PatientListDto> findAllBySearchCondition(SearchForm form) {
 
         if (form.getPageNo() < 1 || form.getPageSize() > 10) {
             throw new IllegalStateException("Not a proper value for page_size or page_no");
@@ -110,9 +111,8 @@ public class PatientService {
         log.debug("patients = {}", patients);
 
         return patients.stream()
-                .map(PatientDto::new)
-                .collect(Collectors.toList())
-                ;
+                .map(PatientListDto::new)
+                .collect(Collectors.toList());
     }
 
 }

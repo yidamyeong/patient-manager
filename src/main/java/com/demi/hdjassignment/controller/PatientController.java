@@ -1,9 +1,6 @@
 package com.demi.hdjassignment.controller;
 
-import com.demi.hdjassignment.controller.dto.CreateDto;
-import com.demi.hdjassignment.controller.dto.DeleteDto;
-import com.demi.hdjassignment.controller.dto.PatientDto;
-import com.demi.hdjassignment.controller.dto.UpdateDto;
+import com.demi.hdjassignment.controller.dto.*;
 import com.demi.hdjassignment.entity.form.PatientCreateForm;
 import com.demi.hdjassignment.entity.form.PatientIdForm;
 import com.demi.hdjassignment.entity.form.PatientUpdateForm;
@@ -66,12 +63,12 @@ public class PatientController {
      * [5] 환자 목록 조회
      */
     @GetMapping(value = "/patient/list")
-    public List<PatientDto> getAllPatient(@RequestHeader(value = "hospital-id") Long hospitalId,
-                                          @RequestParam(value = "name", required = false) String name,
-                                          @RequestParam(value = "reg_id", required = false) String regId,
-                                          @RequestParam(value = "birth", required = false) String birth,
-                                          @RequestParam(value = "page_size", defaultValue = "10") Integer pageSize,
-                                          @RequestParam(value = "page_no", defaultValue = "1") Integer pageNo) {
+    public List<PatientListDto> getAllPatient(@RequestHeader(value = "hospital-id") Long hospitalId,
+                                              @RequestParam(value = "name", required = false) String name,
+                                              @RequestParam(value = "reg_id", required = false) String regId,
+                                              @RequestParam(value = "birth", required = false) String birth,
+                                              @RequestParam(value = "page_size", defaultValue = "10") Integer pageSize,
+                                              @RequestParam(value = "page_no", defaultValue = "1") Integer pageNo) {
 
         return patientService.findAllBySearchCondition(new SearchForm(hospitalId, name, regId, birth, pageSize, pageNo));
     }
