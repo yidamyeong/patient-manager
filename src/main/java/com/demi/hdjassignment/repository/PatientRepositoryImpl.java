@@ -19,9 +19,20 @@ public class PatientRepositoryImpl implements PatientRepositoryCustom {
         return em.createQuery(" select p "
                        +  " from Patient p "
                        +  " where p.hospital.id = : hospitalId "
-                       +  " and p.mobile = : mobile ", Patient.class)
+                       +  " and p.mobile = : mobile "
+                        , Patient.class)
                 .setParameter("hospitalId", hospitalId)
                 .setParameter("mobile", mobile)
+                .getResultList();
+    }
+
+    @Override
+    public List<Patient> findAllByHospitalId(Long hospitalId) {
+        return em.createQuery(" select p "
+                        +  " from Patient p "
+                        +  " where p.hospital.id = : hospitalId "
+                        , Patient.class)
+                .setParameter("hospitalId", hospitalId)
                 .getResultList();
     }
 

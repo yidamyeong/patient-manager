@@ -8,4 +8,6 @@ public interface PatientRepositoryCustom {
 
     List<Patient> findByMobile(Long hospitalId, String mobile);
 
+    List<Patient> findAllByHospitalId(Long hospitalId);
+
 }

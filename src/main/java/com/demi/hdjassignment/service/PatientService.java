@@ -8,6 +8,7 @@ import com.demi.hdjassignment.entity.form.PatientCreateForm;
 import com.demi.hdjassignment.entity.form.PatientUpdateForm;
 import com.demi.hdjassignment.repository.HospitalRepository;
 import com.demi.hdjassignment.repository.PatientRepository;
+import com.demi.hdjassignment.util.ValidationUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -45,10 +46,12 @@ public class PatientService {
     }
 
     @Transactional
-    public UpdateDto updatePatient(PatientUpdateForm form) {
+    public UpdateDto updatePatient(Long hospitalId, PatientUpdateForm form) {
 
         Patient patient = patientRepository.findById(form.getPatientId())
                 .orElseThrow(() -> new InvalidParameterException("Invalid Patient ID"));
+
+        ValidationUtil.rejectIfNotEqual(hospitalId, patient.getHospital().getId(), "Hospital ID");
 
         patient.updatePatient(form.getName(), form.getGender(), form.getBirth(), form.getMobile());
 
@@ -56,19 +59,23 @@ public class PatientService {
     }
 
     @Transactional
-    public void deletePatient(Long id) {
+    public void deletePatient(Long hospitalId, Long patientId) {
 
-        Patient patient = patientRepository.findById(id)
+        Patient patient = patientRepository.findById(patientId)
                 .orElseThrow(() -> new InvalidParameterException("Invalid Patient ID"));
+
+        ValidationUtil.rejectIfNotEqual(hospitalId, patient.getHospital().getId(), "Hospital ID");
 
         patientRepository.delete(patient);
     }
 
     @Transactional
-    public PatientDto findOne(Long id) {
+    public PatientDto findOne(Long hospitalId, Long patientId) {
 
-        Patient patient = patientRepository.findById(id)
+        Patient patient = patientRepository.findById(patientId)
                 .orElseThrow(() -> new InvalidParameterException("Invalid Patient ID"));
+
+        ValidationUtil.rejectIfNotEqual(hospitalId, patient.getHospital().getId(), "Hospital ID");
 
         PatientDto dto = new PatientDto(patient);
         log.debug("dto = {}", dto);
@@ -77,14 +84,14 @@ public class PatientService {
     }
 
     @Transactional
-    public List<PatientDto> findAll() {
-        List<Patient> patients = patientRepository.findAll();
+    public List<PatientDto> findAll(Long hospitalId) {
+        List<Patient> patients = patientRepository.findAllByHospitalId(hospitalId);
         log.debug("patients = {}", patients);
 
         return patients.stream()
                 .map(PatientDto::new)
                 .collect(Collectors.toList())
-        ;
+                ;
     }
 
 }
