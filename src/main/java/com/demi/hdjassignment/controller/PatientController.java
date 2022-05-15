@@ -24,6 +24,9 @@ public class PatientController {
 
     private final PatientService patientService;
 
+    /**
+     * [1] 환자 등록 API
+     */
     @PostMapping(value = "/patient")
     public CreateDto createPatient(@RequestHeader(value = "hospital-id") Long hospitalId,
                                    @Valid @RequestBody PatientCreateForm form) {
@@ -31,12 +34,18 @@ public class PatientController {
         return new CreateDto(patientService.createPatient(form));
     }
 
+    /**
+     * [2] 환자 정보 수정 API
+     */
     @PutMapping(value = "/patient")
     public UpdateDto updatePatient(@RequestHeader(value = "hospital-id") Long hospitalId,
                                    @Valid @RequestBody PatientUpdateForm form) {
         return patientService.updatePatient(hospitalId, form);
     }
 
+    /**
+     * [3] 환자 삭제 API
+     */
     @DeleteMapping(value = "/patient")
     public DeleteDto deletePatient(@RequestHeader(value = "hospital-id") Long hospitalId,
                                    @Valid @RequestBody PatientIdForm form) {
@@ -44,12 +53,18 @@ public class PatientController {
         return new DeleteDto("DELETED");
     }
 
+    /**
+     * [4] 한명의 환자 정보 조회
+     */
     @GetMapping(value = "/patient")
     public PatientDto getPatient(@RequestHeader(value = "hospital-id") Long hospitalId,
                                  @RequestParam("patient_id") Long patientId) {
         return patientService.findOne(hospitalId, patientId);
     }
 
+    /**
+     * [5] 환자 목록 조회
+     */
     @GetMapping(value = "/patient/list")
     public List<PatientDto> getAllPatient(@RequestHeader(value = "hospital-id") Long hospitalId,
                                           @RequestParam(value = "name", required = false) String name,

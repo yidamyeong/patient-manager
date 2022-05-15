@@ -3,7 +3,6 @@ package com.demi.hdjassignment.service;
 import com.demi.hdjassignment.controller.dto.VisitDto;
 import com.demi.hdjassignment.entity.Patient;
 import com.demi.hdjassignment.entity.Visit;
-import com.demi.hdjassignment.entity.code.VisitStatus;
 import com.demi.hdjassignment.repository.PatientRepository;
 import com.demi.hdjassignment.repository.VisitRepository;
 import com.demi.hdjassignment.util.ValidationUtil;
@@ -22,6 +21,7 @@ public class VisitService {
     private final PatientRepository patientRepository;
     private final VisitRepository visitRepository;
 
+    // 환자 방문시 접수하기
     @Transactional
     public VisitDto visit(Long hospitalId, Long patientId) {
 
@@ -41,6 +41,7 @@ public class VisitService {
         return new VisitDto(visit);
     }
 
+    // 환자 방문 정보 변경 - 접수 취소, 접수 종료
     @Transactional
     public VisitDto updateStatus(Long hospitalId, Long patientId, String visitCode) {
 

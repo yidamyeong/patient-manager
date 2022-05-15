@@ -27,6 +27,7 @@ public class PatientService {
     private final PatientRepository patientRepository;
     private final HospitalRepository hospitalRepository;
 
+    // 환자 등록
     @Transactional
     public Long createPatient(PatientCreateForm form) {
 
@@ -47,6 +48,7 @@ public class PatientService {
         return patient.getId();
     }
 
+    // 휴대폰 번호 중복 체크
     private void rejectIfMobileDuplicated(Long hospitalId, String mobile) {
         List<Patient> patients = patientRepository.findByMobile(hospitalId, mobile);
         log.debug("patient = {}", patients);
@@ -55,6 +57,7 @@ public class PatientService {
         }
     }
 
+    // 환자 정보 수정
     @Transactional
     public UpdateDto updatePatient(Long hospitalId, PatientUpdateForm form) {
 
@@ -68,6 +71,7 @@ public class PatientService {
         return new UpdateDto(patient);
     }
 
+    // 환자 삭제
     @Transactional
     public void deletePatient(Long hospitalId, Long patientId) {
 
@@ -79,6 +83,7 @@ public class PatientService {
         patientRepository.delete(patient);
     }
 
+    // 한 명의 환자 조회
     @Transactional
     public PatientDto findOne(Long hospitalId, Long patientId) {
 
@@ -93,6 +98,7 @@ public class PatientService {
         return dto;
     }
 
+    // 환자 목록으로 조회
     @Transactional
     public List<PatientDto> findAllBySearchCondition(SearchForm form) {
 

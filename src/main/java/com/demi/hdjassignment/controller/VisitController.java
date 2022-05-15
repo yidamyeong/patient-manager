@@ -17,17 +17,22 @@ public class VisitController {
 
     private final VisitService visitService;
 
+    /**
+     * [6] 환자 방문시 접수하기
+     */
     @PostMapping(value = "/visit")
     public VisitDto createVisit(@RequestHeader(value = "hospital-id") Long hospitalId,
                                 @Valid @RequestBody PatientIdForm form) {
         return visitService.visit(hospitalId, form.getPatientId());
     }
 
+    /**
+     * [7] 환자 방문 정보 변경 - 접수 취소, 접수 종료
+     */
     @PutMapping(value = "/visit")
     public VisitDto updateStatus(@RequestHeader(value = "hospital-id") Long hospitalId,
                                  @Valid @RequestBody VisitUpdateForm form) {
         return visitService.updateStatus(hospitalId, form.getPatientId(), form.getVisitCode());
     }
-
 
 }
