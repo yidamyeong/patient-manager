@@ -5,6 +5,8 @@
 * Database: H2 2.1.212 <br>
 * IDE: IntelliJ IDEA 2021.2.2 (Ultimate Edition) <br>
 
+<br>
+
 ## DB 설치 안내
 1. https://www.h2database.com/html/download-archive.html
    <br>
@@ -16,6 +18,9 @@
    <br><br>
 3. application.yml 파일의 Datasource 정보대로 접속해주세요.
 4. 터미널에서 h2를 실행 후 콘솔 화면이 켜지지 않으면 URI 의 IP 부분을 localhost 로 변경해주세요.
+5. 그래도 실행이 되지 않는다면, MacOS 의 경우 백그라운드로 실행중인 brew services 들을 모두 종료한 후 다시 시도해주세요.
+
+<br>
 
 ## API 로컬 실행 방법
 1. 위의 가이드대로 H2 데이터베이스(Server)에 접속합니다. (Port: 8082)
@@ -23,7 +28,8 @@
 3. ```java -jar hdj-assignment-0.0.1-SNAPSHOT``` 명령어를 통해 실행합니다.
 4. 애플리케이션이 실행되는 동시에 더미 데이터가 DB로 쌓입니다.
 5. Init DB Insertion 이 끝난 뒤 Postman 을 통해 API 를 호출해보시면 됩니다.
-6. 그래도 실행이 되지 않는다면, MacOS 의 경우 백그라운드로 실행중인 brew services 들을 모두 종료한 후 다시 시도해주세요.
+
+<br>
 
 ## API 명세서
 1. 환자 등록 API
