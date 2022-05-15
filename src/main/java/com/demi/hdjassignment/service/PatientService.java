@@ -94,17 +94,6 @@ public class PatientService {
     }
 
     @Transactional
-    public List<PatientDto> findAll(SearchForm form) {
-        List<Patient> patients = patientRepository.findAllByHospitalId(form.getHospitalId());
-        log.debug("patients = {}", patients);
-
-        return patients.stream()
-                .map(PatientDto::new)
-                .collect(Collectors.toList())
-                ;
-    }
-
-    @Transactional
     public List<PatientDto> findAllBySearchCondition(SearchForm form) {
 
         if (form.getPageNo() < 1 || form.getPageSize() > 10) {

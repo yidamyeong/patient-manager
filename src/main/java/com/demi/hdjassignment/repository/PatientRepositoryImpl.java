@@ -33,16 +33,6 @@ public class PatientRepositoryImpl implements PatientRepositoryCustom {
     }
 
     @Override
-    public List<Patient> findAllByHospitalId(Long hospitalId) {
-        return em.createQuery(" select p "
-                        +  " from Patient p "
-                        +  " where p.hospital.id = : hospitalId "
-                        , Patient.class)
-                .setParameter("hospitalId", hospitalId)
-                .getResultList();
-    }
-
-    @Override
     public List<Patient> findAllBySearchCondition(SearchForm form) {
         QPatient patient = QPatient.patient;
 
