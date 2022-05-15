@@ -4,6 +4,7 @@ import com.demi.hdjassignment.controller.dto.CreateDto;
 import com.demi.hdjassignment.controller.dto.DeleteDto;
 import com.demi.hdjassignment.controller.dto.UpdateDto;
 import com.demi.hdjassignment.entity.form.PatientCreateForm;
+import com.demi.hdjassignment.entity.form.PatientIdForm;
 import com.demi.hdjassignment.entity.form.PatientUpdateForm;
 import com.demi.hdjassignment.service.PatientService;
 import lombok.RequiredArgsConstructor;
@@ -30,8 +31,8 @@ public class PatientController {
     }
 
     @DeleteMapping(value = "/patient")
-    public DeleteDto deletePatient(@Valid @RequestParam("patient_id") Long patientId) {
-        patientService.deletePatient(patientId);
+    public DeleteDto deletePatient(@Valid @RequestBody PatientIdForm form) {
+        patientService.deletePatient(form.getPatientId());
         return new DeleteDto("DELETED");
     }
 }
