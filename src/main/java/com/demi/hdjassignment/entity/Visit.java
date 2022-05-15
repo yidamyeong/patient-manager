@@ -53,4 +53,8 @@ public class Visit {
         patient.getVisits().add(this);
     }
 
+    public void updateStatus(String visitCode) {
+        this.status = VisitStatus.findByCode(visitCode);
+    }
+
 }
