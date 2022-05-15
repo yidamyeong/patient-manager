@@ -23,6 +23,7 @@ public class PatientController {
 
     /**
      * [1] 환자 등록 API
+     * https://2dam0.notion.site/1-API-0fd1e801103546efb134ade184667ce6
      */
     @PostMapping(value = "/patient")
     public CreateDto createPatient(@RequestHeader(value = "hospital-id") Long hospitalId,
@@ -33,6 +34,7 @@ public class PatientController {
 
     /**
      * [2] 환자 정보 수정 API
+     * https://2dam0.notion.site/2-API-1468734328d042528a53bb2c84ac6a75
      */
     @PutMapping(value = "/patient")
     public UpdateDto updatePatient(@RequestHeader(value = "hospital-id") Long hospitalId,
@@ -42,6 +44,7 @@ public class PatientController {
 
     /**
      * [3] 환자 삭제 API
+     * https://2dam0.notion.site/3-API-20b02da971474ab0868ee17e6b25e31e
      */
     @DeleteMapping(value = "/patient")
     public DeleteDto deletePatient(@RequestHeader(value = "hospital-id") Long hospitalId,
@@ -52,6 +55,7 @@ public class PatientController {
 
     /**
      * [4] 한명의 환자 정보 조회
+     * https://2dam0.notion.site/4-1-API-4b9a6ff2654b47648eb323aab62e479d
      */
     @GetMapping(value = "/patient")
     public PatientDto getPatient(@RequestHeader(value = "hospital-id") Long hospitalId,
@@ -61,6 +65,7 @@ public class PatientController {
 
     /**
      * [5] 환자 목록 조회
+     * https://2dam0.notion.site/5-API-6357c7bd5e2f40baaaafe6034d108c32
      */
     @GetMapping(value = "/patient/list")
     public List<PatientListDto> getAllPatient(@RequestHeader(value = "hospital-id") Long hospitalId,
