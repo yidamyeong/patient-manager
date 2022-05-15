@@ -42,9 +42,9 @@ class InitService {
     private List<Hospital> initHospital() {
         for (int i = 0; i < 10; i++) {
             Hospital hospital = Hospital.builder()
-                            .name("Hospital Name - " + (i + 1))
+                            .name("Hospital Name-" + (i + 1))
                             .instId(UUID.randomUUID().toString().substring(0, 8).toUpperCase())
-                            .director("D - " + (i + 1))
+                            .director("D-" + (i + 1))
                             .build();
             entityManager.persist(hospital);
         }
@@ -61,7 +61,7 @@ class InitService {
             for (int i = 0; i < 20; i++) {
                 Patient patient = Patient.builder()
                         .hospital(hospital)
-                        .name("Patient - " + (i + 1))
+                        .name("Patient-" + (i + 1))
                         .genderCode(i < 5 ? "F" : "M")
                         .birth("yyyy-MM-dd")
                         .mobile("010-1234-56" + (i < 10 ? "0" : "") + i)
