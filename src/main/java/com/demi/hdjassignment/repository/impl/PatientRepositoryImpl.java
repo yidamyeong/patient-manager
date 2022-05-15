@@ -1,8 +1,9 @@
-package com.demi.hdjassignment.repository;
+package com.demi.hdjassignment.repository.impl;
 
 import com.demi.hdjassignment.entity.Patient;
 import com.demi.hdjassignment.entity.QPatient;
 import com.demi.hdjassignment.entity.form.SearchForm;
+import com.demi.hdjassignment.repository.PatientRepositoryCustom;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
