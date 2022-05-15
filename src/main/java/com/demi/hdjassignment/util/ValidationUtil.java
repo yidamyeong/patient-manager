@@ -11,4 +11,10 @@ public class ValidationUtil {
         }
     }
 
+    public static void rejectIfNull(Object obj, String subject) {
+        if (Objects.isNull(obj)) {
+            throw new InvalidParameterException("Not matched " + subject);
+        }
+    }
+
 }
