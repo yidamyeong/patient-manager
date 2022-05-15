@@ -32,6 +32,7 @@ public class PatientService {
         Hospital hospital = hospitalRepository.findById(form.getHospitalId())
                 .orElseThrow(() -> new InvalidParameterException("Invalid Hospital ID"));
 
+        rejectIfMobileDuplicated(form.getHospitalId(), form.getMobile());
         Patient patient = Patient.builder()
                 .hospital(hospital)
                 .name(form.getName())
@@ -43,6 +44,14 @@ public class PatientService {
         patientRepository.save(patient);
 
         return patient.getId();
+    }
+
+    private void rejectIfMobileDuplicated(Long hospitalId, String mobile) {
+        List<Patient> patients = patientRepository.findByMobile(hospitalId, mobile);
+        log.debug("patient = {}", patients);
+        if (!patients.isEmpty()) {
+            throw new IllegalStateException("Mobile number already exists");
+        }
     }
 
     @Transactional
