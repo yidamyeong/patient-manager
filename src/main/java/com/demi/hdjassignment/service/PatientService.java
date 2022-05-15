@@ -6,6 +6,7 @@ import com.demi.hdjassignment.entity.Hospital;
 import com.demi.hdjassignment.entity.Patient;
 import com.demi.hdjassignment.entity.form.PatientCreateForm;
 import com.demi.hdjassignment.entity.form.PatientUpdateForm;
+import com.demi.hdjassignment.entity.form.SearchForm;
 import com.demi.hdjassignment.repository.HospitalRepository;
 import com.demi.hdjassignment.repository.PatientRepository;
 import com.demi.hdjassignment.util.ValidationUtil;
@@ -93,8 +94,24 @@ public class PatientService {
     }
 
     @Transactional
-    public List<PatientDto> findAll(Long hospitalId) {
-        List<Patient> patients = patientRepository.findAllByHospitalId(hospitalId);
+    public List<PatientDto> findAll(SearchForm form) {
+        List<Patient> patients = patientRepository.findAllByHospitalId(form.getHospitalId());
+        log.debug("patients = {}", patients);
+
+        return patients.stream()
+                .map(PatientDto::new)
+                .collect(Collectors.toList())
+                ;
+    }
+
+    @Transactional
+    public List<PatientDto> findAllBySearchCondition(SearchForm form) {
+
+        if (form.getPageNo() < 1 || form.getPageSize() > 10) {
+            throw new IllegalStateException("Not a proper value for page_size or page_no");
+        }
+
+        List<Patient> patients = patientRepository.findAllBySearchCondition(form);
         log.debug("patients = {}", patients);
 
         return patients.stream()
