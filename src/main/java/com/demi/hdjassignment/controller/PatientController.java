@@ -1,7 +1,9 @@
 package com.demi.hdjassignment.controller;
 
 import com.demi.hdjassignment.controller.dto.CreateDto;
+import com.demi.hdjassignment.controller.dto.UpdateDto;
 import com.demi.hdjassignment.entity.form.PatientCreateForm;
+import com.demi.hdjassignment.entity.form.PatientUpdateForm;
 import com.demi.hdjassignment.service.PatientService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -19,6 +21,11 @@ public class PatientController {
     @PostMapping(value = "/patient")
     public CreateDto createPatient(@Valid @RequestBody PatientCreateForm form) {
         return new CreateDto(patientService.createPatient(form));
+    }
+
+    @PutMapping(value = "/patient")
+    public UpdateDto updatePatient(@Valid @RequestBody PatientUpdateForm form) {
+        return patientService.updatePatient(form);
     }
 
 }

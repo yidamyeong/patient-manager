@@ -1,8 +1,10 @@
 package com.demi.hdjassignment.service;
 
+import com.demi.hdjassignment.controller.dto.UpdateDto;
 import com.demi.hdjassignment.entity.Hospital;
 import com.demi.hdjassignment.entity.Patient;
 import com.demi.hdjassignment.entity.form.PatientCreateForm;
+import com.demi.hdjassignment.entity.form.PatientUpdateForm;
 import com.demi.hdjassignment.repository.HospitalRepository;
 import com.demi.hdjassignment.repository.PatientRepository;
 import lombok.RequiredArgsConstructor;
@@ -37,6 +39,17 @@ public class PatientService {
         patientRepository.save(patient);
 
         return patient.getId();
+    }
+
+    @Transactional
+    public UpdateDto updatePatient(PatientUpdateForm form) {
+
+        Patient patient = patientRepository.findById(form.getPatientId())
+                .orElseThrow(() -> new InvalidParameterException("Invalid Patient ID"));
+
+        patient.updatePatient(form.getName(), form.getGender(), form.getBirth(), form.getMobile());
+
+        return new UpdateDto(patient);
     }
 
 }
