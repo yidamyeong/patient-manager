@@ -2,6 +2,7 @@ package com.demi.hdjassignment.init;
 
 import com.demi.hdjassignment.entity.Hospital;
 import com.demi.hdjassignment.entity.Patient;
+import com.demi.hdjassignment.entity.Visit;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
@@ -34,9 +35,11 @@ class InitService {
 
     private final EntityManager entityManager;
 
-    public void initDatabase() {
+    public void initDatabase() throws InterruptedException {
         List<Hospital> hospitals = initHospital();
         List<Patient> patients = initPatient(hospitals);
+        initVisit(patients);
+
     }
 
     private List<Hospital> initHospital() {
@@ -75,6 +78,24 @@ class InitService {
                         " select p from Patient p " +
                            " order by p.id asc ", Patient.class)
                 .getResultList();
+    }
+
+    private void initVisit(List<Patient> patients) throws InterruptedException {
+        for (Patient patient : patients) {
+            for (int i = 0; i < 3; i++) {
+                Visit visit = Visit.builder()
+                        .hospital(patient.getHospital())
+                        .patient(patient)
+                        .build();
+                if (i == 0) {
+                    visit.updateStatus("2");
+                } else if (i == 1) {
+                    visit.updateStatus("3");
+                }
+                entityManager.persist(visit);
+                Thread.sleep(1);
+            }
+        }
     }
 
 }
