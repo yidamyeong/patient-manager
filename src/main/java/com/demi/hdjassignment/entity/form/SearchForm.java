@@ -16,7 +16,7 @@ public class SearchForm {
     private String name;
     private String regId;
     private String birth;
-    private Integer pageSize;
-    private Integer pageNo;
+    private int pageSize;
+    private int pageNo;
 
 }

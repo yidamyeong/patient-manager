@@ -72,8 +72,8 @@ public class PatientController {
                                               @RequestParam(value = "name", required = false) String name,
                                               @RequestParam(value = "reg_id", required = false) String regId,
                                               @RequestParam(value = "birth", required = false) String birth,
-                                              @RequestParam(value = "page_size", defaultValue = "10") Integer pageSize,
-                                              @RequestParam(value = "page_no", defaultValue = "1") Integer pageNo) {
+                                              @RequestParam(value = "page_size", defaultValue = "10") int pageSize,
+                                              @RequestParam(value = "page_no", defaultValue = "1") int pageNo) {
 
         return patientService.findAllBySearchCondition(new SearchForm(hospitalId, name, regId, birth, pageSize, pageNo));
     }
