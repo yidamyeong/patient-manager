@@ -1,6 +1,7 @@
 package com.demi.hdjassignment.controller;
 
 import com.demi.hdjassignment.controller.dto.CreateDto;
+import com.demi.hdjassignment.controller.dto.DeleteDto;
 import com.demi.hdjassignment.controller.dto.UpdateDto;
 import com.demi.hdjassignment.entity.form.PatientCreateForm;
 import com.demi.hdjassignment.entity.form.PatientUpdateForm;
@@ -28,4 +29,9 @@ public class PatientController {
         return patientService.updatePatient(form);
     }
 
+    @DeleteMapping(value = "/patient")
+    public DeleteDto deletePatient(@Valid @RequestParam("patient_id") Long patientId) {
+        patientService.deletePatient(patientId);
+        return new DeleteDto("DELETED");
+    }
 }

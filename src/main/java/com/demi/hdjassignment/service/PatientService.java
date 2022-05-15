@@ -52,4 +52,13 @@ public class PatientService {
         return new UpdateDto(patient);
     }
 
+    @Transactional
+    public void deletePatient(Long id) {
+
+        Patient patient = patientRepository.findById(id)
+                .orElseThrow(() -> new InvalidParameterException("Invalid Patient ID"));
+
+        patientRepository.delete(patient);
+    }
+
 }
