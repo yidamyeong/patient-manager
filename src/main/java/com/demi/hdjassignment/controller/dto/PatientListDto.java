@@ -6,13 +6,9 @@ import com.demi.hdjassignment.entity.code.Gender;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
 
-import java.time.LocalDateTime;
 import java.util.Comparator;
-import java.util.stream.Collectors;
 
-@Slf4j
 @Data
 @AllArgsConstructor
 public class PatientListDto {
@@ -33,7 +29,7 @@ public class PatientListDto {
     private String mobile;
 
     @JsonProperty("recent_visit")
-    private LocalDateTime recentVisit;
+    private String recentVisit;
 
     public PatientListDto(Patient patient) {
         name = patient.getName();
@@ -43,8 +39,9 @@ public class PatientListDto {
         mobile = patient.getMobile();
         recentVisit = patient.getVisits().stream()
                 .sorted(Comparator.comparing(Visit::getCreatedAt).reversed())
-                .map(Visit::getCreatedAt)
-                .collect(Collectors.toList())
-                .get(0);
+                .map(visit -> visit.getCreatedAt().toString())
+                .findFirst()
+                .orElse("");
     }
+
 }
