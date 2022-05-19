@@ -63,7 +63,6 @@ public class Patient {
 
     public void setHospital(Hospital hospital) {
         this.hospital = hospital;
-        hospital.getPatients().add(this);
     }
 
     public void updatePatient(String name, String genderCode, String birth, String mobile, Visit... visits) {
